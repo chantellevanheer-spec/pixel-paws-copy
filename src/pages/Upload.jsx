@@ -55,7 +55,7 @@ export default function UploadPage() {
         style_name: style.name,
         style_description: style.description
       });
-      
+
       if (!data.success) {
         throw new Error(data.details || 'Image generation failed.');
       }
@@ -64,7 +64,7 @@ export default function UploadPage() {
         pet_photo_id: petPhoto.id,
         style: style.id,
         transformed_image_url: data.url,
-        prompt_used: data.prompt_used,
+        prompt_used: data.prompt_used
       });
 
       await PetPhoto.update(petPhoto.id, { status: "completed" });
@@ -87,24 +87,24 @@ export default function UploadPage() {
         <p className="body-font-light text-lg text-gray-600 mt-2">Follow these simple steps to transform your pet!</p>
       </header>
       
-      {error && (
-        <Alert className="funky-card bg-red-100 border-red-500 text-red-800">
+      {error &&
+      <Alert className="funky-card bg-red-100 border-red-500 text-red-800">
           <AlertDescription className="body-font">{error}</AlertDescription>
         </Alert>
-      )}
+      }
 
       {/* Progress Bar */}
-      <div className="w-full bg-gray-200 rounded-full h-4 border-2 border-[var(--brand-purple)] funky-card p-1">
-        <div 
-          className="bg-[var(--brand-pink)] h-full rounded-full transition-all duration-500" 
-          style={{ width: `${((currentStepIndex + 1) / steps.length) * 100}%` }}>
-        </div>
-      </div>
+      
+
+
+
+
+
 
       {step === "upload" && <UploadZone onFileUpload={handleFileUpload} />}
       {step === "details" && uploadedFile && <PetDetailsForm uploadedFile={uploadedFile} onSubmit={handlePetDetails} onBack={() => setStep("upload")} />}
       {step === "style" && petPhoto && <StyleSelector petPhoto={petPhoto} onStyleSelect={startTransformation} onBack={() => setStep("details")} />}
       {step === "processing" && <ProcessingView petPhoto={petPhoto} selectedStyle={selectedStyle} isProcessing={isProcessing} />}
-    </div>
-  );
+    </div>);
+
 }
