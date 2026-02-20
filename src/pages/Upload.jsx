@@ -94,11 +94,43 @@ export default function UploadPage() {
       }
 
       {/* Progress Bar */}
-      
-
-
-
-
+      <div className="flex items-center justify-center gap-0 mb-2">
+        {steps.map((s, index) => (
+          <React.Fragment key={s}>
+            <div className="flex flex-col items-center gap-2">
+              <div
+                className={`funky-button w-10 h-10 flex items-center justify-center text-sm ${
+                  index < currentStepIndex
+                    ? "bg-[var(--brand-green)] text-green-900"
+                    : index === currentStepIndex
+                    ? "bg-[var(--brand-orange)] text-white"
+                    : "bg-gray-200 text-gray-500"
+                }`}
+              >
+                {index < currentStepIndex ? "\u2713" : index + 1}
+              </div>
+              <span
+                className={`body-font text-xs capitalize ${
+                  index === currentStepIndex
+                    ? "text-[var(--brand-purple)]"
+                    : "text-gray-400"
+                }`}
+              >
+                {s}
+              </span>
+            </div>
+            {index < steps.length - 1 && (
+              <div
+                className={`h-1 w-12 md:w-20 rounded-full mb-6 ${
+                  index < currentStepIndex
+                    ? "bg-[var(--brand-green)]"
+                    : "bg-gray-200"
+                }`}
+              />
+            )}
+          </React.Fragment>
+        ))}
+      </div>
 
 
       {step === "upload" && <UploadZone onFileUpload={handleFileUpload} />}
