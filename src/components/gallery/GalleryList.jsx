@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Skeleton } from "@/components/ui/skeleton";
 
-export default function GalleryList({ transformations, getPetPhotoById, onSelectTransformation, isLoading }) {
+export default function GalleryList({ transformations, petPhotos, onSelect, isLoading }) {
   if (isLoading) {
     return (
       <div className="clay-element bg-white/60 divide-y divide-purple-100">
@@ -25,13 +25,13 @@ export default function GalleryList({ transformations, getPetPhotoById, onSelect
   return (
     <div className="clay-element bg-white/60 divide-y divide-purple-100">
       {transformations.map((transformation) => {
-        const petPhoto = getPetPhotoById(transformation.pet_photo_id);
+        const petPhoto = petPhotos[transformation.pet_photo_id];
         
         return (
           <div
             key={transformation.id}
             className="p-4 flex items-center gap-4 hover:bg-white/40 cursor-pointer transition-colors duration-200"
-            onClick={() => onSelectTransformation(transformation)}
+            onClick={() => onSelect(transformation)}
           >
             <div className="w-20 h-20 clay-inset overflow-hidden">
               <img

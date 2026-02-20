@@ -9,6 +9,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import GalleryGrid from "../components/gallery/GalleryGrid";
 import GalleryList from "../components/gallery/GalleryList";
 import TransformationModal from "../components/gallery/TransformationModal";
+import GalleryStats from "../components/gallery/GalleryStats";
 
 export default function GalleryPage() {
   const [transformations, setTransformations] = useState([]);
@@ -44,6 +45,11 @@ export default function GalleryPage() {
   useEffect(() => {
     loadGalleryData();
   }, [loadGalleryData]); // loadGalleryData is now a stable function reference due to useCallback
+
+  const stats = transformations.reduce((acc, t) => {
+    acc[t.style] = (acc[t.style] || 0) + 1;
+    return acc;
+  }, {});
 
   if (transformations.length === 0 && !isLoading) {
     return (
@@ -93,6 +99,11 @@ export default function GalleryPage() {
           </div>
         </div>
       </div>
+
+      {/* Gallery Stats */}
+      {!isLoading && transformations.length > 0 && (
+        <GalleryStats transformations={transformations} petPhotos={petPhotos} stats={stats} />
+      )}
 
       {/* Gallery Content */}
       {viewMode === "grid" ? (

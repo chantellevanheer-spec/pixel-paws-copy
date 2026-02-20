@@ -1,7 +1,7 @@
 
 import React, { useState } from "react";
 import { format } from "date-fns";
-import { Download, Star, Heart, Share, Loader2, Sparkles } from "lucide-react"; // Added Loader2 and Sparkles
+import { Download, Star, Heart, Share, Loader2, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Transformation } from "@/entities/all";
@@ -11,12 +11,12 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
-import { generateImageVariations } from "@/functions/generateImageVariations"; // New import
+import { generateImageVariations } from "@/functions/generateImageVariations";
 
 export default function TransformationModal({ transformation, petPhoto, isOpen, onClose }) {
   const [userRating, setUserRating] = useState(transformation?.rating || 0);
   const [isRatingLoading, setIsRatingLoading] = useState(false);
-  const [isGeneratingVariations, setIsGeneratingVariations] = useState(false); // New state
+  const [isGeneratingVariations, setIsGeneratingVariations] = useState(false);
 
   if (!transformation || !petPhoto) return null;
 
@@ -68,7 +68,7 @@ export default function TransformationModal({ transformation, petPhoto, isOpen, 
             pet_photo_id: transformation.pet_photo_id,
             style: `${transformation.style}_variation`,
             transformed_image_url: variation.url,
-            prompt_used: `Variation of: ${transformation.prompt_used || `A ${transformation.style} ${petPhoto.pet_type}`}`, // Ensure prompt_used is passed
+            prompt_used: `Variation of: ${transformation.prompt_used || `A ${transformation.style} ${petPhoto.pet_type}`}`,
             is_premium: transformation.is_premium,
             parent_transformation_id: transformation.id
           });
@@ -80,7 +80,7 @@ export default function TransformationModal({ transformation, petPhoto, isOpen, 
       }
     } catch (error) {
       console.error("Error generating variations:", error);
-    } finally { // Use finally to ensure loading state is reset
+    } finally {
       setIsGeneratingVariations(false);
     }
   };
